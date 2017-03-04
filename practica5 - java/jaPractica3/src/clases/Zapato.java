@@ -18,7 +18,45 @@ public class Zapato {
     private String material;
     private double precio;
     private double existencia;
-
+    
+    /**
+     * Constructor vacío, no recibe parámetros cuando se crea una instancia
+     */
+    public Zapato(){
+        
+    }
+    
+    /**
+     * Constructor que recibe parámetros, es necesario enviarlos cuando se crea una instancia
+     * del objeto.
+     * @param codigo
+     * @param marca
+     * @param talla
+     * @param color
+     * @param precio
+     * @param existencia 
+     */
+    public Zapato(String codigo, String marca, double talla, String color, double precio, double existencia){
+        this.codigo = codigo;
+        this.marca = marca;
+        this.talla = talla;
+        this.color = color;
+        this.precio = precio;
+        this.existencia = existencia;
+    }
+    
+    /**
+     * Constructor sobrecargado, recibe 3 parámetros
+     * @param codigo
+     * @param marca
+     * @param precio 
+     */
+    public Zapato(String codigo, String marca, double precio){
+        this.codigo = codigo;
+        this.marca = marca;
+        this.precio = precio;
+    }
+    
     /**
      * @return the codigo
      */
