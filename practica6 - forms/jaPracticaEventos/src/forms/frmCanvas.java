@@ -5,6 +5,11 @@
  */
 package forms;
 
+import java.awt.event.KeyEvent;
+import java.util.Timer;
+import java.util.TimerTask;
+
+
 /**
  *
  * @author Yova
@@ -14,6 +19,9 @@ public class frmCanvas extends javax.swing.JFrame {
     /**
      * Creates new form frmCanvas
      */
+    
+    private final Timer timer;
+    
     public frmCanvas() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -21,10 +29,74 @@ public class frmCanvas extends javax.swing.JFrame {
         jLienzo.add(dib);
         jLienzo.repaint();
         dib.repaint();
+        
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                
+                mover();
+                dib.repaint();
+                dib.cnt++;
+                
+                if (dib.cnt == 3){
+                   dibPiez();
+                   dib.cnt = 0;
+                }
+            }
+        }, 0, 500);
     }
     
-    public void Imprimir(){
-        
+    public void mover(){
+        for(int y = dib.totFil-1; y>=0;y--){
+            for(int x = 0; x<dib.totCol;x++){
+                if (dib.mat[x][y] != 0){
+                    if ((y+1) <= (dib.totFil-1)){
+                        dib.mat[x][y+1] = dib.mat[x][y];
+                        dib.mat[x][y] = 0;
+                    }else{
+                        dib.mat[x][y] = 0;
+                    }
+                    
+                }
+                
+            }
+        }
+    }
+    
+    public void dibPiez(){
+        int rnd = 1 + (int)(Math.random() * 4);
+        switch (rnd) {
+            case 1:
+                {
+                    int[][] mt = dib.mat;
+                    mt[4][0]=2;
+                    mt[5][0]=2;
+                    mt[6][0]=2;
+                    mt[5][1]=2;
+                    break;
+                }
+            case 2:
+                {
+                    int[][] mt = dib.mat;
+                    mt[4][0]=3;
+                    mt[5][0]=3;
+                    mt[4][1]=3;
+                    mt[5][1]=3;
+                    break;
+                }
+            case 3:
+                {
+                    int[][] mt = dib.mat;
+                    mt[4][0]=1;
+                    mt[4][1]=1;
+                    mt[4][2]=1;
+                    break;
+                }
+            default:
+                break;
+        }
+       
     }
 
     /**
@@ -37,15 +109,18 @@ public class frmCanvas extends javax.swing.JFrame {
     private void initComponents() {
 
         jLienzo = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         jLienzo.setBackground(new java.awt.Color(221, 221, 221));
         jLienzo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jLienzo.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLienzo.setMaximumSize(null);
-        jLienzo.setMinimumSize(null);
         jLienzo.setOpaque(false);
         jLienzo.setPreferredSize(new java.awt.Dimension(350, 350));
 
@@ -53,48 +128,44 @@ public class frmCanvas extends javax.swing.JFrame {
         jLienzo.setLayout(jLienzoLayout);
         jLienzoLayout.setHorizontalGroup(
             jLienzoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 448, Short.MAX_VALUE)
+            .addGap(0, 429, Short.MAX_VALUE)
         );
         jLienzoLayout.setVerticalGroup(
             jLienzoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 348, Short.MAX_VALUE)
         );
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLienzo, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
-                    .addComponent(jButton1))
-                .addContainerGap(286, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLienzo, javax.swing.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE)
+                .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(53, 53, 53)
+                .addContainerGap()
                 .addComponent(jLienzo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(106, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         // TODO add your handling code here:
-        dib.repaint();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        
+        if (evt.getKeyCode() == KeyEvent.VK_DOWN){
+        
+        }else if (evt.getKeyCode() == KeyEvent.VK_UP){
+        System.out.println("rib");
+        }else if (evt.getKeyCode() == KeyEvent.VK_LEFT){
+        
+        }
+    }//GEN-LAST:event_formKeyPressed
 
     /**
      * @param args the command line arguments
@@ -132,7 +203,6 @@ public class frmCanvas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     public javax.swing.JPanel jLienzo;
     // End of variables declaration//GEN-END:variables
 }

@@ -17,12 +17,13 @@ import java.awt.Graphics;
  */
 public final class Dibujo extends Canvas{
     int tam = 20;
-    int totFil = 17;
-    int totCol = 10;
-    int[][] mat;
+    public int totFil = 17;
+    public int totCol = 11;
+    public int[][] mat;
+    public int cnt = 0;
     // Redimensionamos el objeto
     public Dibujo(){
-        this.setSize (350, 350);
+        this.setSize (450, 450);
         mat = new int[totCol][totFil];
         iniMatriz();
     }
@@ -45,24 +46,26 @@ public final class Dibujo extends Canvas{
         int cambio = 0;
         for(int y = 0; y<totFil;y++){
             for(int x = 0; x<totCol;x++){
-                if (cambio == 0){
-                    cambio = 1;
-                    g.setColor(Color.RED);
-                    g.fillRect((tam*x), (tam*y), tam, tam);
-                    g.setColor(Color.BLACK);
-                    g.drawString("" + mat[posX][posY], (tam*x)+3, (tam*y)+tam-3);
-                }else{
-                    cambio = 0;
-                    g.setColor(Color.BLACK);
-                    g.fillRect((tam*x), (tam*y), tam, tam);
-                    g.setColor(Color.RED);
-                    g.drawString("" + mat[posX][posY], (tam*x)+3, (tam*y)+tam-3);
+                switch (mat[x][y]) {
+                    case 0:
+                        g.setColor(Color.GRAY);
+                        g.drawRect((tam*x)+100, (tam*y), tam, tam);
+                        break;
+                    case 1:
+                        g.setColor(Color.BLUE);
+                        g.fillRect((tam*x)+101, (tam*y)+1, tam, tam);
+                        break;
+                    case 2:
+                        g.setColor(Color.red);
+                        g.fillRect((tam*x)+101, (tam*y)+1, tam, tam);
+                        break;
+                    case 3:
+                        g.setColor(Color.ORANGE);
+                        g.fillRect((tam*x)+101, (tam*y)+1, tam, tam);
+                        break;
+                    default:
+                        break;
                 }
-            }
-            if (cambio == 0){
-                cambio = 1;
-            }else{
-                cambio = 0;
             }
         }
         
